@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Para Blanquear Relación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #d4bcd4;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .checkbox-group, .slider-group {
+            margin-bottom: 20px;
+        }
+        .checkbox-group label, .slider-group label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .slider-group {
+            text-align: center;
+        }
+        .slider-group input {
+            width: 100%;
+        }
+        #acceptButton {
+            width: 100%;
+            padding: 10px;
+            background-color: #da4b2d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        #acceptButton.enabled {
+            cursor: pointer;
+            opacity: 1;
+            background-color: #9c2aa0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Formulario Para Blanquear Relación</h2>
+    <div class="checkbox-group">
+        <label><input type="checkbox" class="checkbox"> Acepto permitir que Thiago sea el padre de Pancha.</label>
+        <label><input type="checkbox" class="checkbox"> Confirmo que amo profundamente a Thiago.</label>
+        <label><input type="checkbox" class="checkbox"> Acepto viajar juntos por el mundo.</label>
+        <label><input type="checkbox" class="checkbox"> Acepto cebar mates mientras maneja Thiago en todos los viajes que hagamos.</label>
+        <label><input type="checkbox" class="checkbox"> Prometo que nunca voy a gorrear a Thiago.</label>
+        <label><input type="checkbox" class="checkbox"> Acepto que Thiago me gane en el truco.</label>
+        <label><input type="checkbox" class="checkbox"> Prometo prepararle café espumado a Thiago, aunque me lleve tiempo aprender.</label>
+        <label><input type="checkbox" class="checkbox"> Acepto darle la razón a Thiago siempre que él la tenga.</label>
+        <label><input type="checkbox" class="checkbox"> Prometo probar los mates de Thiago a ver si me gustan.</label>
+    </div>
+    <div class="slider-group">
+        <label>Lindura de Thiago: <span id="sliderValue1">5</span></label>
+        <input type="range" min="0" max="10" value="5" class="slider" id="slider1">
+        <label>Confianza que le tengo: <span id="sliderValue2">5</span></label>
+        <input type="range" min="0" max="10" value="5" class="slider" id="slider2">
+    </div>
+    <button id="acceptButton" disabled>Acepto ser la novia de Thiago</button>
+</div>
+
+<script>
+    const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+    const sliders = document.querySelectorAll('.slider');
+    const acceptButton = document.getElementById('acceptButton');
+
+    function updateSliderValues() {
+        document.getElementById('sliderValue1').textContent = document.getElementById('slider1').value;
+        document.getElementById('sliderValue2').textContent = document.getElementById('slider2').value;
+    }
+
+    function validateForm() {
+        const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+        const allSlidersMax = Array.from(sliders).every(slider => slider.value == 10);
+
+        if (allChecked && allSlidersMax) {
+            acceptButton.disabled = false;
+            acceptButton.classList.add('enabled');
+        } else {
+            acceptButton.disabled = true;
+            acceptButton.classList.remove('enabled');
+        }
+    }
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', validateForm);
+    });
+
+    sliders.forEach(slider => {
+        slider.addEventListener('input', () => {
+            updateSliderValues();
+            validateForm();
+        });
+    });
+
+    updateSliderValues();
+</script>
+
+</body>
+</html>
